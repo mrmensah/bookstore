@@ -1,11 +1,32 @@
 <template>
-    <h1>This is the cart page</h1>
+  <div id="page-wrap">
+    <h1>Shopping Cart</h1>
+    <CartList :products="cartItems" />
+    <h3 id="total-price">Total: ${{ totalPrice }}</h3>
+    <button id="checkout-button">Proceed to Checkout</button>
+  </div>
 </template>
 
 <script>
+import { cartItems } from "../fake-data";
+import CartList from "../components/CartList";
+
 export default {
-    name: 'ProductsPage',
-}
+  name: "ProductsPage",
+  components: {
+    CartList,
+  },
+  data() {
+    return {
+      cartItems,
+    };
+  },
+  computed: {
+    totalPrice() {
+      return this.cartItems.reduce((sum, item) => sum + Number(item.price), 0);
+    },
+  },
+};
 </script>
 
 <style scoped>
